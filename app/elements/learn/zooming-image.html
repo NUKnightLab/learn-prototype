@@ -4,17 +4,14 @@
 
 <dom-module id="zooming-image">
   <style>
-  .zoom: {
-    color: red; 
-    bottom: 20px; 
-    right: 40px
-  }
-
   </style>
   <template>
     <div>  
         <img src="{{ src }}">
-        <paper-icon-button class="zoom" icon="search" on-click="doZoom"></paper-icon-button>
+        <span id="zoom">
+        <paper-icon-button icon="search" on-click="doZoom" style="color: red;position: relative;bottom: 13px;right: 40px;"></paper-icon-button>  
+        </span>
+        
     </div>  
   </template>
 </dom-module>
