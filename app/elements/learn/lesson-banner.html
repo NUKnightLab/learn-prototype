@@ -4,7 +4,10 @@ a `lesson-banner` is the top part of the page. The element is intended to be emp
 
 For now, trying to implement it as an extension of <paper-header-panel> https://elements.polymer-project.org/elements/paper-header-panel but that's not deeply founded.
 
-TK: a hamburger menu for the top left.
+TK: 
+  * a hamburger menu for the top left. 
+  * less amateur positioning of the h1#title
+  * the teal filter (#80CBC4)
 
 Example:
 
@@ -41,16 +44,15 @@ Example:
       left: 0;
       top: 0;
     }
-    #text {
+    #title {
       font-family: Roboto, sans-serif;
-      z-index: 100;
-      position: absolute;
       color: black;
       font-size: 24px;
       font-weight: bold;
-      margin:20 auto;
       width: 100%;
-      bottom: 120px;
+      text-align: center;
+      position: absolute;
+      bottom: 140px;
     }
   </style>
   <template>
@@ -61,8 +63,8 @@ Example:
     </div>
     <paper-header-panel mode="waterfall-tall">
       <div id="container" class="paper-header image">
-      <!-- <img id='image' src="{{ image }}"> -->
-      <h1 id="text">{{title}}</h1>
+      <img id='image' src="{{ image }}">
+      <h1 id="title">{{title}}</h1>
     </paper-header-panel>
   </template>
 </dom-module>
