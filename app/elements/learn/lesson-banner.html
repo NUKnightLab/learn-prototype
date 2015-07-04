@@ -1,9 +1,40 @@
+<!--
+
+a `lesson-banner` is the top part of the page. The element is intended to be empty, and all necessary variable data is specified in attributes. 
+
+For now, trying to implement it as an extension of <paper-header-panel> https://elements.polymer-project.org/elements/paper-header-panel but that's not deeply founded.
+
+TK: a hamburger menu for the top left.
+
+Example:
+
+    <lesson-banner img="path/to/image.png" label="Label for component">
+    </lesson-banner>
+
+@group Learn Elements
+@class lesson-banner
+-->
+
 <dom-module id="lesson-banner">
   <style>
     #container {
       width: 100%;
       height: 400px;
       position: relative;
+    }
+    #navigation {
+      background-color: #263238;
+      padding: 10px;
+      color: #80CBC4;
+      font-family: Roboto;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 24px;
+      width: 100%;
+      text-align: center;
+    }
+    #navigation img {
+      float: right;
     }
     #image {
       position: absolute;
@@ -23,9 +54,14 @@
     }
   </style>
   <template>
+    <div id="navigation">
+    <!-- TK: hamburger menu? -->
+    Learn
+    <a href="/index.html"><img src="/images/learn/banner-logo-white.png"></a>
+    </div>
     <paper-header-panel mode="waterfall-tall">
       <div id="container" class="paper-header image">
-      <img id='image' src="{{ image }}">
+      <!-- <img id='image' src="{{ image }}"> -->
       <h1 id="text">{{title}}</h1>
     </paper-header-panel>
   </template>

@@ -2,6 +2,10 @@
 
 `capsule-reference` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
+TK: a pointer to the actual capsule, an icon button,  and behavior to bring it onto the page. Figure out if it is actually all part of this component or if this component and the actual capsule are just different views on the same model instance. 
+
+At the moment, https://elements.polymer-project.org/elements/paper-fab seems like a good starting point for the icon button.
+
 Example:
 
     <capsule-reference img="path/to/image.png" label="Label for component">
@@ -22,16 +26,14 @@ Example:
     color: #5C5C5C;
     background-color: white;
     width: inherit;
-    border: 1px solid red;
   }
 
   </style>
   <template>
   <paper-material elevation="1" class="wrapper paper-font-body2">
   <div class="wrapper">
-    <p>{{ label }}</p>
     <img src="{{ image }}">
-    
+    <p>{{ label }}</p>
   </div>
   </paper-material>
   </template>
@@ -42,9 +44,7 @@ Example:
 
     properties: {
       /**
-       * The z-depth of this element, from 0-5. Setting to 0 will remove the
-       * shadow, and each increasing number greater than 0 will be "deeper"
-       * than the last.
+       * a URL to the image to be shown for the reference.
        *
        * @attribute image
        * @type String
@@ -55,11 +55,17 @@ Example:
         value: ""
       },
 
+      /**
+       * a text label for the reference.
+       *
+       * @attribute label
+       * @type String
+       * @default "See also"
+       */
       label: {
         type: String,
-        value: ""
+        value: "See also"
       }
-
     }
   });
 </script>
