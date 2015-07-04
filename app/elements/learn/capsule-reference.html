@@ -1,0 +1,65 @@
+<!--
+
+`capsule-reference` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
+
+Example:
+
+    <capsule-reference img="path/to/image.png" label="Label for component">
+    </capsule-reference>
+
+@group Learn Elements
+@class capsule-reference
+-->
+<dom-module id="capsule-reference">
+  <style>
+  ::content .wrapper {
+    display: inline;
+    width: 344px;
+    height: 500px;
+  }
+
+  ::content .wrapper p {
+    color: #5C5C5C;
+    background-color: white;
+    width: inherit;
+    border: 1px solid red;
+  }
+
+  </style>
+  <template>
+  <paper-material elevation="1" class="wrapper paper-font-body2">
+  <div class="wrapper">
+    <p>{{ label }}</p>
+    <img src="{{ image }}">
+    
+  </div>
+  </paper-material>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'capsule-reference',
+
+    properties: {
+      /**
+       * The z-depth of this element, from 0-5. Setting to 0 will remove the
+       * shadow, and each increasing number greater than 0 will be "deeper"
+       * than the last.
+       *
+       * @attribute image
+       * @type String
+       * @default ""
+       */
+      image: {
+        type: String,
+        value: ""
+      },
+
+      label: {
+        type: String,
+        value: ""
+      }
+
+    }
+  });
+</script>

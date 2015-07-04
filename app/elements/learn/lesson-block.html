@@ -1,0 +1,40 @@
+<!--
+
+`lesson-block` is a container that shows general lesson information, typically at the beginning or end of a lesson. It is similar to, but distinct from a 'step-block.' It generally can contain any HTML and has no custom properties.
+
+Example:
+
+    <lesson-block>
+      ... content ...
+    </lesson-block>
+
+@group Learn Elements
+@class lesson-block
+-->
+<dom-module id="lesson-block">
+  <style>
+  ::content .content-wrapper {
+    background-color: #FFF7E8;
+    padding: 25px;
+  };
+
+  ::content .content-wrapper h2 { /* Free floating for any h2 inside */
+    color: #E3B052;
+  }
+  </style>
+  <template>
+  <paper-material elevation="1" class="paper-font-body2">
+    <div class="content-wrapper">
+      <content></content>
+    </div>
+  </paper-material>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'lesson-block',
+
+    properties: {
+    }
+  });
+</script>

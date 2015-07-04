@@ -1,0 +1,47 @@
+<dom-module id="lesson-banner">
+  <style>
+    #container {
+      width: 100%;
+      height: 400px;
+      position: relative;
+    }
+    #image {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    #text {
+      font-family: Roboto, sans-serif;
+      z-index: 100;
+      position: absolute;
+      color: black;
+      font-size: 24px;
+      font-weight: bold;
+      margin:20 auto;
+      width: 100%;
+      bottom: 120px;
+    }
+  </style>
+  <template>
+    <paper-header-panel mode="waterfall-tall">
+      <div id="container" class="paper-header image">
+      <img id='image' src="{{ image }}">
+      <h1 id="text">{{title}}</h1>
+    </paper-header-panel>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'lesson-banner',
+    properties: {
+        image: {
+            type: String,
+            value: ""
+        },
+        title: {
+            type: String,
+            value: "Lesson Title"
+        }
+    }
+  });
+</script>
