@@ -3,7 +3,7 @@
 `capsule-reference` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
 TK: 
-  * Fix label so that it's integrated with the image.
+  * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
   * add the button. At the moment, https://elements.polymer-project.org/elements/paper-fab seems like a good starting point.
   * implement behavior to show the capsule
   * Figure out if it is actually all part of this component or if this component and the actual capsule are just different views on the same model instance. 
@@ -23,13 +23,16 @@ Example:
   ::content .wrapper {
     display: inline;
     width: 344px;
-    height: 500px;
+    float: left;
+    margin-right: 25px;
   }
 
   ::content .wrapper p {
     color: #5C5C5C;
     background-color: white;
-    width: inherit;
+    line-height: 0;
+    font-size: 24px;
+    padding: 2px 0 0 15px;
   }
 
   </style>
