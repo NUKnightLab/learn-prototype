@@ -1,6 +1,6 @@
 <!--
 
-`capsule` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
+`capsule-unit` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
 TK:
   * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
@@ -16,9 +16,9 @@ Example:
     </capsule>
 
 @group Learn Elements
-@class capsule
+@class capsule-unit
 -->
-<dom-module id="capsule">
+<dom-module id="capsule-unit">
   <style>
   ::content .wrapper {
     flex-direction: row | row-reverse | column
@@ -51,7 +51,7 @@ Example:
 </dom-module>
 <script>
   Polymer({
-    is: 'capsule',
+    is: 'capsule-unit',
 
     properties: {
       /**
