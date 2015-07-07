@@ -1,8 +1,8 @@
 <!--
 
-`step-block` is a container that shows one of several steps in a typical lesson. It generally 
-can contain any HTML. Each `step-block` should have a `title` attribute. Step blocks also 
-have step numbers-at this time, the goal is to have the numbers automatically applied. It 
+`step-block` is a container that shows one of several steps in a typical lesson. It generally
+can contain any HTML. Each `step-block` should have a `title` attribute. Step blocks also
+have step numbers-at this time, the goal is to have the numbers automatically applied. It
 might make sense to build them around `ol` (ordered list) tags, but if there are any elements
 that interrupt the steps, maintaining numbering continuity could be a hassle. Thinking about
 making something count them and apply numbering at page load time.
@@ -65,12 +65,9 @@ Example:
             if (kids[i] === this) {
               this.stepnum = steps;
               break;
-            }            
+            }
           }
         };
-
-        console.log('attached',this);
-        window.stash = this;
       })
     },
 

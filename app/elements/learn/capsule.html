@@ -1,6 +1,6 @@
 <!--
 
-`capsule-reference` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
+`capsule` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
 TK:
   * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
@@ -12,13 +12,13 @@ TK:
 
 Example:
 
-    <capsule-reference img="path/to/image.png" label="Label for component">
-    </capsule-reference>
+    <capsule img="path/to/image.png" label="Label for component">
+    </capsule>
 
 @group Learn Elements
-@class capsule-reference
+@class capsule
 -->
-<dom-module id="capsule-reference">
+<dom-module id="capsule">
   <style>
   ::content .wrapper {
     flex-direction: row | row-reverse | column
@@ -43,7 +43,7 @@ Example:
   <paper-material elevation="1" class="wrapper paper-font-body2">
   <div class="wrapper">
     <img src="{{ image }}">
-    <!-- <paper-icon-button icon="content-copy" style="position: relative"></paper-icon-button> -->
+    <paper-icon-button icon="content-copy" style="position: relative"></paper-icon-button>
     <p>{{ label }}</p>
   </div>
   </paper-material>
@@ -51,7 +51,7 @@ Example:
 </dom-module>
 <script>
   Polymer({
-    is: 'capsule-reference',
+    is: 'capsule',
 
     properties: {
       /**
