@@ -43,19 +43,37 @@ Example:
   step-number {
     color: #ffffff;
     background-color: #80CBC4;
-    padding: 50px;
+    padding: 45px 50px;
+    margin: 100% 0 0 0;
     border-radius: 50%;
     font-family: Roboto;
     font-weight: 500;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 45%;
+  }
+
+  content-wrapper {
+    display: flex;
+    flex-direction: row | row-reverse | column;
+  }
+
+  content-wrapper div {
+    position: relative;
   }
 
   </style>
   <template>
-  <step-number>{{ stepnum }}</step-number>
+  <content-wrapper>
+  <div>
+    <step-number>{{ stepnum }}</step-number>
+  </div>
   <paper-material elevation="1" class="paper-font-body2">
     <h2>{{ title }}</h2>
       <content></content>
   </paper-material>
+  </div>
   </template>
 </dom-module>
 <script>
