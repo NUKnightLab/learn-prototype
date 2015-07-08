@@ -1,6 +1,6 @@
 <!--
 
-`capsule-unit` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
+`info-block` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
 TK:
   * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
@@ -12,13 +12,13 @@ TK:
 
 Example:
 
-    <capsule img="path/to/image.png" label="Label for component">
-    </capsule>
+    <info-block img="path/to/image.png" label="Label for component">
+    </info-block>
 
 @group Learn Elements
-@class capsule-unit
+@class info-block
 -->
-<dom-module id="capsule-unit">
+<dom-module id="info-block">
   <style>
   ::content .wrapper {
     flex-direction: row | row-reverse | column
@@ -26,37 +26,37 @@ Example:
     float: left;
     /*margin-right: 10px; */
     /* padding-right: 25px; */
-    background-color: white;
+    background-color: #F5F4F4;
   }
 
   ::content .wrapper p {
-    color: #5C5C5C;
-    background-color: white;
+    color: #9B9B9B;
+    background-color: #F5F4F4;
     line-height: 0;
     font-size: 24px;
     padding: 2px 0 0 15px;
   }
 
-  paper-fab {
-    color: #80CBC4;
-    background-color: #273238;
+  h3 {
+    color: #263238;
+
   }
 
 
   </style>
   <template>
-  <paper-material elevation="1" class="wrapper paper-font-body2">
+  <paper-material elevation="0" class="wrapper paper-font-body2">
   <div class="wrapper" style="position:relative">
     <img src="{{ image }}">
-    <paper-fab icon="content-copy" on-click="{{console.log(Success!)}}" style="position:absolute;z-index:999;left:265px;bottom:30px"></paper-fab>
-    <p>{{ label }}</p>
+    <h3>{{ title }}</h3>
+      <content></content>
   </div>
   </paper-material>
   </template>
 </dom-module>
 <script>
   Polymer({
-    is: 'capsule-unit',
+    is: 'info-block',
 
     properties: {
       /**
@@ -78,10 +78,10 @@ Example:
        * @type String
        * @default "See also"
        */
-      label: {
-        type: String,
-        value: "See also"
-      }
+       title: {
+           type: String,
+           value: ""
+       },
     }
   });
 </script>
