@@ -1,0 +1,58 @@
+<!--
+
+`lesson-reference` is a unit intended for use inside a `lesson-block` which provides a path to a separate stand-alone lesson. A `lesson-reference` has an `href` attribute pointing to the referenced lesson and an `image`attr
+
+Example:
+
+    <lesson-reference>
+      ... content ...
+    </lesson-reference>
+
+@group Learn Elements
+@class lesson-reference
+-->
+<dom-module id="lesson-reference">
+  <style>
+  div.reference-image-wrapper {
+    position: relative;
+  }
+
+  div.reference-image-wrapper img {
+  }
+
+  div.reference-image-wrapper h2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 10px;
+    color: #ffffff;
+  }
+
+  </style>
+  <template>
+  <paper-material elevation="1" class="paper-font-body2">
+  <div class="reference-image-wrapper">
+    <img src="{{ image }}">
+    <h2>{{ title }}</h2>    
+  </div>
+  <content>
+  </content>
+  </paper-material>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'lesson-reference',
+
+    properties: {
+      title: {
+        type: String,
+        value: "Lesson Title"
+      },
+      image: {
+        type: String,
+        value: ""
+      }
+    }
+  });
+</script>
