@@ -19,42 +19,27 @@
   Polymer({
     is: 'zooming-image',
 
-    doZoom: function() { console.log("clicked!"); },
+    behaviors: [
+      Polymer.NeonAnimationRunnerBehavior
+    ],
+
+    doZoom: function() { 
+      this.playAnimation();
+    },
     properties: {
-        src: {
-            type: String,
-            value: ""
-        }
-
-
-      /**
-       * The z-depth of this element, from 0-5. Setting to 0 will remove the
-       * shadow, and each increasing number greater than 0 will be "deeper"
-       * than the last.
-       *
-       * @attribute elevation
-       * @type number
-       * @default 1
-      elevation: {
-        type: Number,
-        reflectToAttribute: true,
-        value: 1
+      src: {
+          type: String,
+          value: ""
       },
-       */
-
-      /**
-       * Set this to true to animate the shadow when setting a new
-       * `elevation` value.
-       *
-       * @attribute animated
-       * @type boolean
-       * @default false
-      animated: {
-        type: Boolean,
-        reflectToAttribute: true,
-        value: false
+      animationConfig: {
+        value: function() {
+          return {
+            // provided by neon-animation/animations/scale-down-animation.html
+            name: 'scale-up-animation',
+            node: this
+          }
+        }
       }
-       */
     }
   });
 </script>
