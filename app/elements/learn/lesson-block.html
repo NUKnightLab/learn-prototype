@@ -13,10 +13,13 @@ Example:
 -->
 <dom-module id="lesson-block">
   <style>
-  ::content { clear: both; }
+  ::content paper-material.lesson-block {
+    background-color: #FFF7E8;
+
+
+  }
 
   ::content .lesson-block-wrapper {
-    background-color: #FFF7E8;
     padding: 25px;
     margin-left: 50px;
     margin-right: 50px;
@@ -28,7 +31,7 @@ Example:
   }
   </style>
   <template>
-  <paper-material elevation="1" class="paper-font-body2">
+  <paper-material elevation="1" class="lesson-block paper-font-body2">
     <div class="lesson-block-wrapper">
       <content></content>
     </div>
