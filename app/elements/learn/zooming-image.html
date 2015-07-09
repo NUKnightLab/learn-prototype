@@ -1,11 +1,15 @@
 <dom-module id="zooming-image">
   <style>
+  ::content #zoom {
+    position: relative;
+  };
+
   </style>
   <template>
     <div>  
-        <img src="{{ src }}">
         <span id="zoom">
-        <paper-icon-button icon="search" on-click="doZoom" style="color: red;position: relative;bottom: 13px;right: 40px;"></paper-icon-button>  
+        <img src="{{ src }}">
+        <paper-icon-button icon="zoom-in" on-click="doZoom" style="position:absolute;z-index:999;right:0;bottom:0; color: white"></paper-icon-button>
         </span>
         
     </div>  
