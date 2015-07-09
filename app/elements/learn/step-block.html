@@ -15,114 +15,110 @@ making something count them and apply numbering at page load time.
 
 Example:
 
-    <lesson-block>
-      ... content ...
-    </lesson-block>
+	<lesson-block>
+	  ... content ...
+	</lesson-block>
 
 @group Learn Elements
 @class lesson-block
 -->
 <dom-module id="step-block">
-  <style>
-  ::content { clear: both; }
+	<style>
+		::content { clear: both; }
 
-  h2 {
-    color: #338D83;
-    font-family: Roboto;
-    font-weight: bold;
+		h2 {
+			color: #338D83;
+			font-family: Roboto;
+			font-weight: bold;
 
-  }
+		}
 
-  paper-material {
-    padding: 10px;
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 30px;
-  }
+		paper-material {
+			padding: 10px;
+			width: 50%;
+			/*margin: 0 auto;*/
+			padding-top: 30px;
+		}
 
-  step-number {
-    color: #ffffff;
-    background-color: #80CBC4;
-    padding: 45px 50px;
-    margin: 100% 0 0 0;
-    border-radius: 50%;
-    font-family: Roboto;
-    font-weight: 500;
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 45%;
-  }
+		step-number {
+			color: #ffffff;
+			background-color: #80CBC4;
+			padding: 45px 50px;
+			border-radius: 50%;
+			font-family: Roboto;
+			font-weight: 500;
+			margin-right:20px;
+		}
 
-  content-wrapper {
-    display: flex;
-    flex-direction: row;
-  }
+		content-wrapper {
+			display: flex;
+			/*flex-direction: row;*/
+			display: flex;
+			/*margin: 0 auto;*/
+			align-items: center;
+			justify-content: center;
+		}
 
-  content-wrapper div {
-    position: relative;
-  }
 
-  </style>
-  <template>
-  <content-wrapper>
-  <div>
-    <step-number>{{ stepnum }}</step-number>
-  </div>
-  <paper-material elevation="1" class="paper-font-body2">
-    <h2>{{ title }}</h2>
-      <content></content>
-  </paper-material>
-  </div>
-  </template>
+	</style>
+	<template>
+		<content-wrapper layout-align="center center">
+			<step-number>{{ stepnum }}</step-number>
+			<paper-material class="paper-font-body2">
+				<h2>{{ title }}</h2>
+				<content></content>
+			</paper-material>
+		</content-wrapper>
+	</template>
 </dom-module>
+
 <script>
   Polymer({
-    is: 'step-block',
+	is: 'step-block',
 
-    attached: function() {
-      this.async(function() {
-        var steps = 0;
-        var kids = this.parentNode.children;
-        for (var i = 0; i < kids.length; i++) {
-          if (kids[i].nodeName == this.nodeName) {
-            steps += 1;
-            if (kids[i] === this) {
-              this.stepnum = steps;
-              break;
-            }
-          }
-        };
-      })
-    },
+	attached: function() {
+	  this.async(function() {
+		var steps = 0;
+		var kids = this.parentNode.children;
+		for (var i = 0; i < kids.length; i++) {
+		  if (kids[i].nodeName == this.nodeName) {
+			steps += 1;
+			if (kids[i] === this) {
+			  this.stepnum = steps;
+			  break;
+			}
+		  }
+		};
+	  })
+	},
 
-    properties: {
-        /**
-         * The primary label for this step.
-         *
-         * @attribute title
-         * @type String
-         * @default ""
-         */
-        title: {
-            type: String,
-            value: ""
-        },
+	properties: {
+		/**
+		 * The primary label for this step.
+		 *
+		 * @attribute title
+		 * @type String
+		 * @default ""
+		 */
+		title: {
+			type: String,
+			value: ""
+		},
 
-        /**
-         * The position of this step among all steps. Not meant to be set by users,
-         * at the moment it gets set at page load time by analyzing all other steps
-         * with the same parent.
-         *
-         * @attribute title
-         * @type String
-         * @default ""
-         */
-        stepnum: {
-            type: Number,
-            value: 0
-        }
+		/**
+		 * The position of this step among all steps. Not meant to be set by users,
+		 * at the moment it gets set at page load time by analyzing all other steps
+		 * with the same parent.
+		 *
+		 * @attribute title
+		 * @type String
+		 * @default ""
+		 */
+		stepnum: {
+			type: Number,
+			value: 0
+		}
 
-    }
+	}
   });
 </script>
