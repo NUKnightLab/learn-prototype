@@ -4,14 +4,15 @@
 
 Example:
 
-    <lesson-block>
-      ... content ...
-    </lesson-block>
+	<lesson-block>
+	  ... content ...
+	</lesson-block>
 
 @group Learn Elements
 @class lesson-block
 -->
 <dom-module id="lesson-block">
+<<<<<<< HEAD
   <style>
   ::content paper-material.lesson-block {
     background-color: #FFF7E8;
@@ -37,12 +38,37 @@ Example:
     </div>
   </paper-material>
   </template>
+=======
+	<style>
+		::content { clear: both; }
+
+		::content .lesson-block-wrapper {
+			background-color: #FFF7E8;
+			padding: 25px;
+			margin-left: 50px;
+			margin-right: 50px;
+			margin-bottom:50px;
+		};
+
+		::content .lesson-block-wrapper h2 { /* Free floating for any h2 inside */
+			color: #E3B052;
+
+		}
+	</style>
+	<template>
+		<paper-material elevation="1" class="paper-font-body2">
+			<div class="lesson-block-wrapper">
+				<content></content>
+			</div>
+		</paper-material>
+	</template>
+>>>>>>> a925e07039adf7e0195f9021d97033f763513c8e
 </dom-module>
 <script>
-  Polymer({
-    is: 'lesson-block',
+	Polymer({
+		is: 'lesson-block',
 
-    properties: {
-    }
-  });
+		properties: {
+		}
+	});
 </script>
