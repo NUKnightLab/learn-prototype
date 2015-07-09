@@ -20,21 +20,18 @@ Example:
 -->
 <dom-module id="capsule-unit">
   <style>
-  ::content .wrapper {
-    flex-direction: row | row-reverse | column
+  ::content .capsule-unit-wrapper {
+    flex-direction: row;
     width: 344px;
-    float: left;
-    /*margin-right: 10px; */
-    /* padding-right: 25px; */
     background-color: white;
   }
 
-  ::content .wrapper p {
+  ::content .capsule-unit-wrapper p {
     color: #5C5C5C;
     background-color: white;
-    line-height: 0;
     font-size: 24px;
-    padding: 2px 0 0 15px;
+    margin: 15px;
+    padding-bottom: 20px;
   }
 
   paper-fab {
@@ -46,9 +43,9 @@ Example:
   </style>
   <template>
   <paper-material elevation="1" class="wrapper paper-font-body2">
-  <div class="wrapper" style="position:relative">
+  <div class="capsule-unit-wrapper" style="position:relative">
     <img src="{{ image }}">
-    <paper-fab icon="content-copy" on-click="{{console.log(Success!)}}" style="position:absolute;z-index:999;left:265px;bottom:30px"></paper-fab>
+    <paper-fab icon="content-copy" on-click="{{console.log(Success!)}}" style="position:absolute;z-index:999;right:25px;bottom:38px"></paper-fab>
     <p>{{ label }}</p>
   </div>
   </paper-material>
