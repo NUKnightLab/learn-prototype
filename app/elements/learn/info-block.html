@@ -1,18 +1,11 @@
 <!--
 
-`info-block` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
-
-TK:
-  * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
-  * add the button. At the moment, https://elements.polymer-project.org/elements/paper-fab seems like a good starting point.
-  * implement behavior to show the capsule
-  * Figure out if it is actually all part of this component or if this component and the actual capsule are just different views on the same model instance.
-
- for the icon button.
+`info-block` is a container that shows general lesson information, typically at the beginning or end of a lesson. It is similar to, but distinct from a 'step-block.' It generally can contain any HTML and has no custom properties.
 
 Example:
 
-    <info-block img="path/to/image.png" label="Label for component">
+    <info-block>
+      ... content ...
     </info-block>
 
 @group Learn Elements
@@ -20,37 +13,34 @@ Example:
 -->
 <dom-module id="info-block">
   <style>
-  ::content .wrapper {
-    flex-direction: row | row-reverse | column
-    width: 344px;
-    float: left;
-    /*margin-right: 10px; */
-    /* padding-right: 25px; */
+  ::content { clear: both; }
+
+  ::content .content-wrapper {
     background-color: #F5F4F4;
-  }
+    padding: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+  };
+  /*
+  .content-wrapper h2 {
+   color: #263238;
+   float: right;
+ }
 
-  ::content .wrapper p {
-    color: #9B9B9B;
-    background-color: #F5F4F4;
-    line-height: 0;
-    font-size: 24px;
-    padding: 2px 0 0 15px;
-  }
-
-  h3 {
-    color: #263238;
-
-  }
+  .content-wrapper p {
+   color: #9B9B9B;
+   float: right;
+ }
+ */
 
 
   </style>
   <template>
-  <paper-material elevation="0" class="wrapper paper-font-body2">
-  <div class="wrapper" style="position:relative">
-    <img src="{{ image }}">
-    <h3>{{ title }}</h3>
+  <paper-material elevation="0" class="paper-font-body2">
+    <div class="content-wrapper">
+      <img src="{{ image }}">
       <content></content>
-  </div>
+    </div>
   </paper-material>
   </template>
 </dom-module>
@@ -59,29 +49,10 @@ Example:
     is: 'info-block',
 
     properties: {
-      /**
-       * a URL to the image to be shown for the reference.
-       *
-       * @attribute image
-       * @type String
-       * @default ""
-       */
       image: {
         type: String,
         value: ""
-      },
-
-      /**
-       * a text label for the reference.
-       *
-       * @attribute label
-       * @type String
-       * @default "See also"
-       */
-       title: {
-           type: String,
-           value: ""
-       },
+      }
     }
   });
 </script>
