@@ -1,44 +1,85 @@
 <dom-module id="zooming-image">
   <style>
-  ::content #zoom {
+  ::content #zooming-image {
     position: relative;
   };
 
+  ::content #zooming-image-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 313px;
+    height: 200px;
+    z-index: 10;
+  };
+
+  ::content #fullsize {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 313px;
+    height: 200px;
+    z-index: 20;
+  };
+
+  ::content #fullsize.zoomed {
+      display: inline;
+      width: auto;
+      height: auto;
+      -webkit-transition: 10s ease-in-out;
+      -moz-transition: 10s ease-in-out;
+      -o-transition: 10s ease-in-out;
+      transition: 10s ease-in-out;
+  }
   </style>
   <template>
-    <div>  
-        <span id="zoom">
-        <img src="{{ src }}">
-        <paper-icon-button icon="zoom-in" on-click="doZoom" style="position:absolute;z-index:999;right:0;bottom:0; color: white"></paper-icon-button>
-        </span>
-        
-    </div>  
+    <div id="zooming-image">
+      <img id='thumbnail' src="{{ src }}">
+      <img id='fullsize'>
+      <paper-icon-button icon="zoom-in" on-click="showFullSized" style="position:absolute;z-index:11;right:0;bottom:0; color: white"></paper-icon-button>
+    </div>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: 'zooming-image',
-
-    behaviors: [
-      Polymer.NeonAnimationRunnerBehavior
-    ],
-
-    doZoom: function() { 
-      this.playAnimation();
+    listeners: {
+      "keyup": "zoomOutOnEsc",
+      "click": "clickListener"
+    },
+    clickListener: function(e) {
+      if (e.target.id == 'thumbnail') {
+        this.showFullSized();
+      }
+    },
+    showFullSized: function() {
+      var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+      if (zoomed.src) {
+        zoomed.classList.add('zoomed');
+      } else {
+        zoomed.onload = this.showFullSized;
+        zoomed.addEventListener('click',this.hideFullSized)
+        zoomed.src = this.fullSrc;
+      }
+    },
+    hideFullSized: function() {
+      var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+      zoomed.classList.remove('zoomed');
+    },
+    zoomOutOnEsc: function(e) { // doesn't work if it has lost focus, which is not obvious to users...
+      if (e.keyCode == 27) {
+        this.hideFullSized();
+      }
     },
     properties: {
       src: {
           type: String,
           value: ""
       },
-      animationConfig: {
-        value: function() {
-          return {
-            // provided by neon-animation/animations/scale-down-animation.html
-            name: 'scale-up-animation',
-            node: this
-          }
-        }
+      fullSrc: {
+          type: String,
+          value: ""
       }
     }
   });
