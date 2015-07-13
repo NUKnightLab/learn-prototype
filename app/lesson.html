@@ -7,16 +7,6 @@
 		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js">
 		</script>
 		<link rel="import" href="elements/elements.html">
-		<style type="text/css">
-			/* Eventually this will migrate to an external CSS file */
-			narrative-text {
-				/* Does narrative-text need to be a polymer/web component?
-				Or if it is just a matter of CSS, can we get away with a custom element name
-				and corresponding CSS selectors?
-				**/
-				font-family: "Roboto Light", sans-serif;
-			}
-		</style>
 	</head>
 
 	<body class="fullbleed"> <!-- Don't really know the details of these Material/Polymer classes -->
@@ -44,8 +34,6 @@
 				</div>
 			</lesson-block>
 
-			<div style="clear: both"></div>
-
 			<step-block title="Setup: Create a Folder">
 				<p>
 					You don't want your web files mixing with the rest of your things. Put this folder somewhere you can find it easily.
@@ -57,8 +45,8 @@
 					</p>
 				</div>
 				<media-group class="layout horizontal around-justified">
-					<zooming-image src="/images/learn/mac-screenshot.png"></zooming-image>
-					<zooming-image src="/images/learn/pc-screenshot.png"></zooming-image>
+					<zooming-image src="/images/learn/mac-screenshot.png" full-src="/images/learn/mac-screenshot-big.png"></zooming-image>
+					<zooming-image src="/images/learn/pc-screenshot.png" full-src="/images/learn/pc-screenshot-big.png"></zooming-image>
 				</media-group>
 				<info-block image="images/learn/info-icon.png">
 					<h2>What do files and folders have to do with websites</h2>
