@@ -13,58 +13,70 @@
     z-index: 10;
   };
 
-  ::content #fullsize {
-    display: none;
+  ::content #fullsize { 
+    /* also set display:none using style attribute so the to-small 
+     * doesn't happen on page load
+    */
     position: absolute;
     top: 0;
     left: 0;
     width: 0px;
     height: 0px;
     z-index: 20;
+    animation: to-small-size 1s ease-out running;
+    --webkit-animation: to-small-size 1s ease-out running;
   };
 
   ::content #fullsize.zoomed {
       display: inline;
       width: auto;
       height: auto;
-      animation: to-full-size 1s cubic-bezier(0.39, 0.58, 0.57, 1)  running;
-      --webkit-animation: to-full-size 1s cubic-bezier(0.39, 0.58, 0.57, 1)  running;
+      animation: to-full-size 1s ease-out  running;
+      --webkit-animation: to-full-size 1s ease-out  running;
   }
 
 
   /* Chrome, Safari, Opera */ 
   @-webkit-keyframes to-full-size {
-      25% {width: 25%; height: 25%;}
-      50% {width: 50%; height: 50%;}
-      75% {width: 75%; height: 75%;}
+      0%   {width: 0; height: 0;}
+      25%  {width: 25%; height: 25%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 75%; height: 75%;}
       100% {width: 100%; height: 100%;}
   } 
 
   /* Standard syntax */ 
   @keyframes to-full-size {
-      25% {width: 25%; height: 25%;}
-      50% {width: 50%; height: 50%;}
-      75% {width: 75%; height: 75%;}
+      0%   {width: 0; height: 0;}
+      25%  {width: 25%; height: 25%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 75%; height: 75%;}
       100% {width: 100%; height: 100%;}
   }
 
   /* Chrome, Safari, Opera */ 
   @-webkit-keyframes to-small-size {
-      from {width: auto; height: auto;}
-      to {width: 313px; height: 200px;}
+      0%   {width: 100%; height: 100%;}
+      25%  {width: 75%; height: 75%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 25%; height: 25%;}
+      100% {width: 0; height: 0;}
   } 
 
   /* Standard syntax */ 
   @keyframes to-small-size {
-      from {width: auto; height: auto;}
-      to {width: 313px; height: 200px;}
+      0%   {width: 100%; height: 100%;}
+      25%  {width: 75%; height: 75%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 25%; height: 25%;}
+      100% {width: 0; height: 0;}
   }
 
   </style>
   <template>
     <div id="zooming-image">
       <img id='thumbnail' src="{{ src }}">
-      <img id='fullsize'>
+      <img id='fullsize' style="display: none;">
       <paper-icon-button icon="zoom-in" on-click="showFullSized" style="position:absolute;z-index:11;right:0;bottom:0; color: white"></paper-icon-button>
     </div>
   </template>
@@ -83,6 +95,7 @@
     },
     showFullSized: function() {
       var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+      zoomed.style.display = "inherit";
       if (zoomed.src) {
         zoomed.classList.add('zoomed');
       } else {
