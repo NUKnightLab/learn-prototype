@@ -1,0 +1,50 @@
+<!--
+
+`learn-nav` is the consistent navigation bar at the top of every page. The element is intended to be empty and no attributes are needed.. 
+
+TK: 
+    * a hamburger menu for the top left. 
+
+Example:
+
+        <learn-nav></learn-nav>
+
+@group Learn Elements
+@class learn-nav
+-->
+
+<dom-module id="learn-nav">
+    <style>
+
+        #navigation {
+            background-color: #263238;
+            padding: 10px;
+            color: #80CBC4;
+            font-family: Roboto;
+            font-weight: 500;
+            font-style: italic;
+            font-size: 24px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        #home-link {
+            position: absolute;
+            right: 40px;
+        }
+    </style>
+    <template>
+            <div id="navigation">
+            <!-- TK: hamburger menu? -->
+            Learn
+            <a id="home-link" href="/index.html"><img src="/images/learn/banner-logo-white.png"></a>
+        </div>
+    
+    </template>
+</dom-module>
+<script type="text/javascript">
+    Polymer({
+        is: "learn-nav"
+    })
+</script>

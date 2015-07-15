@@ -55,7 +55,7 @@ Example:
   <div class="reference-image-wrapper">
     <img src="{{ image }}">
     <h2>{{ title }}</h2>    
-    <paper-fab icon="arrow-forward" on-click="{{console.log('Success!')}}"></paper-fab>
+    <paper-fab icon="arrow-forward" on-click="loadReference"></paper-fab>
   </div>
   <div class="reference-copy-wrapper">
     <content>
@@ -67,7 +67,9 @@ Example:
 <script>
   Polymer({
     is: 'lesson-reference',
-
+    loadReference: function() {
+      console.log('clicky');
+    },
     properties: {
       title: {
         type: String,
