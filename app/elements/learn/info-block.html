@@ -13,34 +13,39 @@ Example:
 -->
 <dom-module id="info-block">
   <style>
-  ::content { clear: both; }
 
-  ::content .info-content-wrapper {
+  ::content #info-block-wrapper {
     background-color: #F5F4F4;
+    padding: 0 10px;
   };
 
-  .info-content-wrapper h2 {
+  ::content #info-block-content {
+    padding: 0 10px;
+  }
+  #info-block-content h2 {
    color: #263238;
  }
 
-  .info-content-wrapper p {
+  #info-block-content p {
    color: #9B9B9B;
  }
-  .info-block-img {
-    margin: auto;
+
+  #info-block-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom:50px;
   }
-  .info-block-img img {
-    margin: auto;
-  }
+
 
   </style>
   <template>
   <paper-material elevation="0" class="paper-font-body2">
-    <div class="info-content-wrapper layout horizontal">
-      <div class="flex info-block-img">
+    <div id="info-block-wrapper" class="layout horizontal">
+      <div id="info-block-img" class="flex">
         <img src="{{ image }}">
       </div>
-      <div class="flex-2">
+      <div id="info-block-content" class="flex-3">
         <content></content>  
       </div>
     </div>
