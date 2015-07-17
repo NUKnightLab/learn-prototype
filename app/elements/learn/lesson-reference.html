@@ -13,11 +13,20 @@ Example:
 -->
 <dom-module id="lesson-reference">
   <style>
+
+  ::content #lesson-reference-container {
+    position: relative;
+    right: -40px;
+    background-color: #fff;
+    margin-bottom: 20px;
+  };
+
   div.reference-image-wrapper {
     position: relative;
   }
 
   div.reference-image-wrapper img {
+    width: 100%;
   }
 
   div.reference-image-wrapper h2 {
@@ -28,22 +37,39 @@ Example:
     color: #ffffff;
   }
 
+  div.reference-image-wrapper paper-fab {
+    position: absolute;
+    right: -30px;
+    bottom: -20px;
+    background-color: #fff;
+    color: #000;
+  }
+
+  div.reference-copy-wrapper {
+    padding: 5px;
+  };
+
   </style>
   <template>
-  <paper-material elevation="1" class="paper-font-body2">
+  <paper-material id="lesson-reference-container" elevation="2" class="paper-font-body2">
   <div class="reference-image-wrapper">
     <img src="{{ image }}">
     <h2>{{ title }}</h2>    
+    <paper-fab icon="arrow-forward" on-click="loadReference"></paper-fab>
   </div>
-  <content>
-  </content>
+  <div class="reference-copy-wrapper">
+    <content>
+    </content>
+  </div>
   </paper-material>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: 'lesson-reference',
-
+    loadReference: function() {
+      console.log('clicky');
+    },
     properties: {
       title: {
         type: String,

@@ -1,45 +1,145 @@
 <dom-module id="zooming-image">
   <style>
-  ::content #zoom {
+  ::content #zooming-image {
     position: relative;
   };
 
+  ::content #zooming-image-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 313px;
+    height: 200px;
+    z-index: 10;
+  };
+
+  ::content #fullsize { 
+    /* also set display:none using style attribute so the to-small 
+     * doesn't happen on page load
+    */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 0px;
+    z-index: 20;
+    animation: to-small-size 1s ease-out running;
+    --webkit-animation: to-small-size 1s ease-out running;
+  };
+
+  ::content #fullsize.zoomed {
+      display: inline;
+      width: auto;
+      height: auto;
+      animation: to-full-size 1s ease-out  running;
+      --webkit-animation: to-full-size 1s ease-out  running;
+  }
+
+
+  /* Chrome, Safari, Opera */ 
+  @-webkit-keyframes to-full-size {
+      0%   {width: 0; height: 0;}
+      25%  {width: 25%; height: 25%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 75%; height: 75%;}
+      100% {width: 100%; height: 100%;}
+  } 
+
+  /* Standard syntax */ 
+  @keyframes to-full-size {
+      0%   {width: 0; height: 0;}
+      25%  {width: 25%; height: 25%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 75%; height: 75%;}
+      100% {width: 100%; height: 100%;}
+  }
+
+  /* Chrome, Safari, Opera */ 
+  @-webkit-keyframes to-small-size {
+      0%   {width: 100%; height: 100%;}
+      25%  {width: 75%; height: 75%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 25%; height: 25%;}
+      100% {width: 0; height: 0;}
+  } 
+
+  /* Standard syntax */ 
+  @keyframes to-small-size {
+      0%   {width: 100%; height: 100%;}
+      25%  {width: 75%; height: 75%;}
+      50%  {width: 50%; height: 50%;}
+      75%  {width: 25%; height: 25%;}
+      100% {width: 0; height: 0;}
+  }
+
   </style>
   <template>
-    <div>  
-        <span id="zoom">
-        <img src="{{ src }}">
-        <paper-icon-button icon="zoom-in" on-click="doZoom" style="position:absolute;z-index:999;right:0;bottom:0; color: white"></paper-icon-button>
-        </span>
-        
-    </div>  
+    <div id="zooming-image">
+      <img id='thumbnail' src="{{ src }}">
+      <img id='fullsize' style="display: none;">
+      <paper-icon-button icon="zoom-in" on-click="showFullSized" style="position:absolute;z-index:11;right:0;bottom:0; color: white"></paper-icon-button>
+    </div>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: 'zooming-image',
-
-    behaviors: [
-      Polymer.NeonAnimationRunnerBehavior
-    ],
-
-    doZoom: function() { 
-      this.playAnimation();
+    behaviors: [Polymer.IronA11yKeysBehavior],
+    listeners: {
+      "click": "clickListener"
+    },
+    keyBindings: {
+      'esc': '_handleEscapeKey'
+    },
+    /* Using IronA11yKeysBehavior, listen for 'esc' key pressed
+     * anywhere on the page (see keyEventTarget property). 
+     * escape will hide a zoomed image.
+     */
+    _handleEscapeKey: function(e) {
+      this.hideFullSized();
+    },
+    /* Support users clicking on the small image to get the big one,
+     * and the big one to hide it and go back to the small one.
+     */
+    clickListener: function(e) {
+      if (e.target.id == 'thumbnail') {
+        this.showFullSized();
+      } else if (e.target.id == 'fullsize') {
+        this.hideFullSized();
+      }
+    },
+    showFullSized: function() {
+      var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+      zoomed.style.display = "inherit";
+      if (zoomed.src) {
+        zoomed.classList.add('zoomed');
+      } else {
+        var self = this;
+        zoomed.onload = this.showFullSized;
+        document.addEventListener('escape-pressed', self.hideFullSized);
+        zoomed.src = this.fullSrc;
+      }
+    },
+    hideFullSized: function() {
+      var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+      zoomed.classList.remove('zoomed');
     },
     properties: {
       src: {
           type: String,
           value: ""
       },
-      animationConfig: {
+      fullSrc: {
+          type: String,
+          value: ""
+      },
+      keyEventTarget: {
+        type: Object,
         value: function() {
-          return {
-            // provided by neon-animation/animations/scale-down-animation.html
-            name: 'scale-up-animation',
-            node: this
-          }
+          return document.body;
         }
       }
     }
   });
 </script>
+
