@@ -24,12 +24,10 @@ Example:
 
   .info-content-wrapper h2 {
    color: #263238;
-   float: right;
  }
 
   .info-content-wrapper p {
    color: #9B9B9B;
-   float: right;
  }
 
   .clearfix {
@@ -37,8 +35,8 @@ Example:
  }
 
   img {
-    float: left;
     padding-top: 50px;
+    padding-right: 25px;
   }
 
 /*
@@ -55,11 +53,13 @@ Example:
   </style>
   <template>
   <paper-material elevation="0" class="paper-font-body2">
-    <div class="info-content-wrapper">
+    <div class="info-content-wrapper layout horizontal">
       <div class="image-wrapper">
         <img src="{{ image }}">
       </div>
-      <content></content>
+      <div>
+        <content></content>
+      </div>
     </div>
   </paper-material>
   </template>

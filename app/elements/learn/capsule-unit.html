@@ -2,31 +2,53 @@
 
 `capsule-unit` is a labeled image which triggers to a modal "capsule" explanation of a concept. In our prototype example, capsule-references appear in the "what you'll need" block and explain more about text editors and FTP programs. The element is intended to be empty, and all necessary variable data is specified in attributes.
 
-TK:
-  * Maybe this shouldn't be a paper element. Maybe that's why it doesn't "fill up" the containing block?
-  * add the button. At the moment, https://elements.polymer-project.org/elements/paper-fab seems like a good starting point.
-  * implement behavior to show the capsule
-  * Figure out if it is actually all part of this component or if this component and the actual capsule are just different views on the same model instance.
-
- for the icon button.
-
+`capsule-unit` is a polymer component made up of two other polymer components, `capsule-ref` and `capsule-card`. It acts as a container for these two sub components and handles the hero-animation transition between the two sub components.
 Example:
 
-    <capsule img="path/to/image.png" label="Label for component">
-    </capsule>
+    <capsule-unit img="path/to/image.png" title="Title for both the reference and the card">
+      Put the conent of your card here in regular text.
+    </capsule-unit>
 
 @group Learn Elements
 @class capsule-unit
 -->
+
+<!-- **********  CAPSULE-UNIT  ********** -->
+
 <dom-module id="capsule-unit">
   <style>
-  ::content .capsule-unit-wrapper {
-    flex-direction: row;
+    .capsule-unit-wrapper {
+      height: 300px;
+      width: 300px;
+      padding-right: 100px;
+    }
+  </style>
+  <template>
+    <div class="capsule-unit-wrapper">
+    <neon-animated-pages id="pages" selected="0">
+
+        <capsule-ref image="{{ image }}" title="{{ title }}">
+        </capsule-ref>
+        <capsule-card title="{{ title }}">
+          <content></content>
+        </capsule-card>
+
+    </neon-animated-pages>
+  </div>
+  </template>
+</dom-module>
+
+<!-- **********  CAPSULE-REF  ********** -->
+
+<dom-module id="capsule-ref">
+  <style>
+  ::content .capsule-ref-wrapper {
     width: 344px;
     background-color: white;
+
   }
 
-  ::content .capsule-unit-wrapper p {
+  ::content .capsule-ref-wrapper p {
     color: #5C5C5C;
     background-color: white;
     font-size: 24px;
@@ -38,51 +60,201 @@ Example:
     color: #80CBC4;
     background-color: #273238;
     right: 25px;
-    bottom: 380px;
+    bottom: 38px;
     position: absolute;
-    z-index: 999;
+    z-index: 998;
   }
-
-
   </style>
+
   <template>
+  <div id="hero">
   <paper-material elevation="1" class="wrapper paper-font-body2">
-  <div class="capsule-unit-wrapper" style="position:relative">
-    <img src="{{ image }}">
-    <paper-fab icon="content-copy" on-click="{{console.log('Success!')}}"></paper-fab>
-    <p>{{ label }}</p>
+  <div class="capsule-ref-wrapper" style="position:relative">
+      <img src="{{ image }}">
+      <paper-fab icon="content-copy" on-click="doExpand"></paper-fab>
+      <p>{{ title }}</p>
   </div>
   </paper-material>
+  </div>
   </template>
 </dom-module>
+
+<!-- **********  CAPSULE-CARD  ********** -->
+
+<dom-module id="capsule-card">
+
+<style>
+#card {
+
+  width:700px;
+  height:700px;
+  position:absolute;
+  left:300px;
+  top:100px;
+  margin: 25px;
+  z-index: 999;
+},
+
+#card h2 {
+  position: absolute;
+  padding-top: 20px;
+  padding-left: 20px;
+  font-color: #338D83;
+}
+paper-material {
+  background-color: white;
+
+}
+
+paper-icon-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+</style>
+
+<template>
+  <div id="card">
+    <paper-material elevation="1" class="wrapper paper-font-body2">
+      <h2>{{ title }}</h2>
+      <paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
+      <content></content>
+    </paper-material>
+  </div>
+</template>
+</dom-module>
+
+<!-- **********  SCRIPTS  ********** -->
+
 <script>
-  Polymer({
-    is: 'capsule-unit',
+Polymer({
+  is: 'capsule-unit',
 
-    properties: {
-      /**
-       * a URL to the image to be shown for the reference.
-       *
-       * @attribute image
-       * @type String
-       * @default ""
-       */
-      image: {
-        type: String,
-        value: ""
-      },
+  behaviors: [
 
-      /**
-       * a text label for the reference.
-       *
-       * @attribute label
-       * @type String
-       * @default "See also"
-       */
-      label: {
-        type: String,
-        value: "See also"
-      }
+  ],
+
+  properties: {
+    image: {
+      type: String,
+      value: ""
+    },
+    title: {
+      type: String,
+      value: "See also"
+    },
+  }
+});
+
+Polymer({
+  is: 'capsule-ref',
+
+  behaviors: [
+      Polymer.NeonAnimatableBehavior
+  ],
+
+  doExpand: function() {
+    this.parentElement.select(1);
+  },
+  properties: {
+    /**
+     * a URL to the image to be shown for the reference. Passes through to the capsule-ref
+     *
+     * @attribute image
+     * @type String
+     * @default ""
+     */
+    image: {
+      type: String,
+      value: ""
+    },
+
+    /**
+     * a text label for the reference. Passes through to the capsule-ref
+     *
+     * @attribute label
+     * @type String
+     * @default "See also"
+     */
+    title: {
+      type: String,
+      value: "See also"
+    },
+
+    animationConfig: {
+        value: function() {
+            return {
+                // the outgoing page defines the 'exit' animation
+                'exit': {
+                    name: 'hero-animation',
+                    id: 'hero',
+                    fromPage: this,
+                },
+              'entry': {
+                  name: 'hero-animation',
+                  id: 'hero',
+                  toPage: this,
+              }
+            }
+        }
+    },
+    sharedElements: {
+        value: function() {
+            return {
+              'hero': this.$.hero,
+            }
+        }
     }
-  });
+
+  },
+});
+
+Polymer({
+is: "capsule-card",
+
+behaviors: [
+    Polymer.NeonAnimatableBehavior
+],
+
+ doClose: function() {
+  this.parentElement.select(0);
+},
+
+properties: {
+    title: {
+      type: String,
+      value: "Card Title"
+    },
+
+    sharedElements: {
+        type: Object,
+        value: function() {
+            return {
+              'hero': this.$.card,
+              }
+        }
+    },
+
+    animationConfig: {
+        value: function() {
+            return {
+                // the incoming page defines the 'entry' animation
+                'entry': {
+                    name: 'hero-animation',
+                    id: 'hero',
+                    toPage: this,
+                },
+                'exit': {
+                    name: 'hero-animation',
+                    id: 'hero',
+                    fromPage: this,
+                }
+
+            }
+        }
+    },
+
+}
+});
 </script>
