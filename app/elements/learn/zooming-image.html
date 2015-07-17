@@ -84,13 +84,28 @@
 <script>
   Polymer({
     is: 'zooming-image',
+    behaviors: [Polymer.IronA11yKeysBehavior],
     listeners: {
-      "keyup": "zoomOutOnEsc",
       "click": "clickListener"
     },
+    keyBindings: {
+      'esc': '_handleEscapeKey'
+    },
+    /* Using IronA11yKeysBehavior, listen for 'esc' key pressed
+     * anywhere on the page (see keyEventTarget property). 
+     * escape will hide a zoomed image.
+     */
+    _handleEscapeKey: function(e) {
+      this.hideFullSized();
+    },
+    /* Support users clicking on the small image to get the big one,
+     * and the big one to hide it and go back to the small one.
+     */
     clickListener: function(e) {
       if (e.target.id == 'thumbnail') {
         this.showFullSized();
+      } else if (e.target.id == 'fullsize') {
+        this.hideFullSized();
       }
     },
     showFullSized: function() {
@@ -99,20 +114,15 @@
       if (zoomed.src) {
         zoomed.classList.add('zoomed');
       } else {
+        var self = this;
         zoomed.onload = this.showFullSized;
-        zoomed.addEventListener('click',this.hideFullSized);
-        zoomed.addEventListener('keyup', this.zoomOutOnEsc);
+        document.addEventListener('escape-pressed', self.hideFullSized);
         zoomed.src = this.fullSrc;
       }
     },
     hideFullSized: function() {
       var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
       zoomed.classList.remove('zoomed');
-    },
-    zoomOutOnEsc: function(e) { // doesn't work if it has lost focus, which is not obvious to users...
-      if (e.keyCode == 27) {
-        this.hideFullSized();
-      }
     },
     properties: {
       src: {
@@ -122,7 +132,14 @@
       fullSrc: {
           type: String,
           value: ""
+      },
+      keyEventTarget: {
+        type: Object,
+        value: function() {
+          return document.body;
+        }
       }
     }
   });
 </script>
+
