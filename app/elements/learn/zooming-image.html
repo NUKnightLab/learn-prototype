@@ -77,7 +77,7 @@
     <div id="zooming-image">
       <img id='thumbnail' src="{{ src }}">
       <img id='fullsize' style="display: none;">
-      <paper-icon-button icon="zoom-in" on-click="showFullSized" style="position:absolute;z-index:11;right:0;bottom:0; color: white"></paper-icon-button>
+      <paper-icon-button icon="zoom-in" on-click="_handleButtonClick" style="position:absolute;z-index:11;right:0;bottom:0; color: white"></paper-icon-button>
     </div>
   </template>
 </dom-module>
@@ -86,7 +86,7 @@
     is: 'zooming-image',
     behaviors: [Polymer.IronA11yKeysBehavior],
     listeners: {
-      "click": "clickListener"
+      "click": "_clickListener"
     },
     keyBindings: {
       'esc': '_handleEscapeKey'
@@ -96,33 +96,39 @@
      * escape will hide a zoomed image.
      */
     _handleEscapeKey: function(e) {
-      this.hideFullSized();
+      this.zoomed = false;
     },
     /* Support users clicking on the small image to get the big one,
      * and the big one to hide it and go back to the small one.
      */
-    clickListener: function(e) {
-      if (e.target.id == 'thumbnail') {
-        this.showFullSized();
-      } else if (e.target.id == 'fullsize') {
-        this.hideFullSized();
-      }
+    _clickListener: function(e) {
+      this.zoomed = (e.target.id == 'thumbnail');
     },
-    showFullSized: function() {
+    _handleButtonClick: function(e) {
+      this.zoomed = true;
+      e.stopPropagation();
+    },
+    _showFullSized: function() {
       var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
       zoomed.style.display = "inherit";
       if (zoomed.src) {
         zoomed.classList.add('zoomed');
-      } else {
+      } else { // lazy load big images
         var self = this;
-        zoomed.onload = this.showFullSized;
-        document.addEventListener('escape-pressed', self.hideFullSized);
+        zoomed.onload = this._showFullSized;
         zoomed.src = this.fullSrc;
       }
     },
-    hideFullSized: function() {
+    _hideFullSized: function() {
       var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
       zoomed.classList.remove('zoomed');
+    },
+    _zoomedObserver: function() {
+      if (this.zoomed) {
+        this._showFullSized()
+      } else {
+        this._hideFullSized();
+      }
     },
     properties: {
       src: {
@@ -132,6 +138,11 @@
       fullSrc: {
           type: String,
           value: ""
+      },
+      zoomed: {
+        type: Boolean,
+        value: false,
+        observer: '_zoomedObserver'
       },
       keyEventTarget: { // IronA11yKeysBehavior - listen for esc anywhere on page
         type: Object,
