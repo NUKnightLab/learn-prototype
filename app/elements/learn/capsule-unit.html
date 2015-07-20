@@ -60,7 +60,7 @@ Example:
     color: #80CBC4;
     background-color: #273238;
     right: 25px;
-    bottom: 38px;
+    bottom: 80px;
     position: absolute;
     z-index: 998;
   }
@@ -92,7 +92,7 @@ Example:
   left:300px;
   top:100px;
   margin: 25px;
-  z-index: 999;
+    z-index: 999;
 },
 
 #card h2 {
@@ -100,7 +100,7 @@ Example:
   padding-top: 20px;
   padding-left: 20px;
   font-color: #338D83;
-}
+  }
 paper-material {
   background-color: white;
 
@@ -112,30 +112,30 @@ paper-icon-button {
   right: 0px;
 }
 
-</style>
+  </style>
 
-<template>
+  <template>
   <div id="card">
-    <paper-material elevation="1" class="wrapper paper-font-body2">
+  <paper-material elevation="1" class="wrapper paper-font-body2">
       <h2>{{ title }}</h2>
       <paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
       <content></content>
     </paper-material>
   </div>
-</template>
+  </template>
 </dom-module>
 
 <!-- **********  SCRIPTS  ********** -->
 
 <script>
-Polymer({
-  is: 'capsule-unit',
+  Polymer({
+    is: 'capsule-unit',
 
   behaviors: [
 
   ],
 
-  properties: {
+    properties: {
     image: {
       type: String,
       value: ""
@@ -158,28 +158,28 @@ Polymer({
     this.parentElement.select(1);
   },
   properties: {
-    /**
+      /**
      * a URL to the image to be shown for the reference. Passes through to the capsule-ref
-     *
-     * @attribute image
-     * @type String
-     * @default ""
-     */
-    image: {
-      type: String,
-      value: ""
-    },
+       *
+       * @attribute image
+       * @type String
+       * @default ""
+       */
+      image: {
+        type: String,
+        value: ""
+      },
 
-    /**
+      /**
      * a text label for the reference. Passes through to the capsule-ref
-     *
-     * @attribute label
-     * @type String
-     * @default "See also"
-     */
+       *
+       * @attribute label
+       * @type String
+       * @default "See also"
+       */
     title: {
-      type: String,
-      value: "See also"
+        type: String,
+        value: "See also"
     },
 
     animationConfig: {
@@ -195,8 +195,8 @@ Polymer({
                   name: 'hero-animation',
                   id: 'hero',
                   toPage: this,
-              }
-            }
+      }
+    }
         }
     },
     sharedElements: {
@@ -208,7 +208,7 @@ Polymer({
     }
 
   },
-});
+  });
 
 Polymer({
 is: "capsule-card",
