@@ -131,9 +131,17 @@ paper-icon-button {
   Polymer({
     is: 'capsule-unit',
 
-  behaviors: [
-
-  ],
+    behaviors: [Polymer.IronA11yKeysBehavior],
+    keyBindings: {
+      'esc': '_handleEscapeKey'
+    },
+    /* Using IronA11yKeysBehavior, listen for 'esc' key pressed
+     * anywhere on the page (see keyEventTarget property). 
+     * escape will close an open capsule.
+     */
+    _handleEscapeKey: function(e) {
+      this.$$('neon-animated-pages').select(0);
+    },
 
     properties: {
     image: {
@@ -144,6 +152,12 @@ paper-icon-button {
       type: String,
       value: "See also"
     },
+    keyEventTarget: { // IronA11yKeysBehavior
+      type: Object,
+      value: function() {
+        return document.body;
+      }
+    }
   }
 });
 
@@ -159,7 +173,7 @@ Polymer({
   },
   properties: {
       /**
-     * a URL to the image to be shown for the reference. Passes through to the capsule-ref
+       * a URL to the image to be shown for the reference. 
        *
        * @attribute image
        * @type String
@@ -171,7 +185,7 @@ Polymer({
       },
 
       /**
-     * a text label for the reference. Passes through to the capsule-ref
+       * a text label for the reference. Passes through to the capsule-ref
        *
        * @attribute label
        * @type String
@@ -184,19 +198,18 @@ Polymer({
 
     animationConfig: {
         value: function() {
-            return {
-                // the outgoing page defines the 'exit' animation
-                'exit': {
-                    name: 'hero-animation',
-                    id: 'hero',
-                    fromPage: this,
-                },
-              'entry': {
-                  name: 'hero-animation',
-                  id: 'hero',
-                  toPage: this,
-      }
-    }
+          return {
+            'exit': {
+              name: 'hero-animation',
+              id: 'hero',
+              fromPage: this,
+            },
+            'entry': {
+              name: 'hero-animation',
+              id: 'hero',
+              toPage: this,
+            }
+          }
         }
     },
     sharedElements: {
