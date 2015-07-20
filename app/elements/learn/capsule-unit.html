@@ -37,7 +37,42 @@ Example:
   </div>
   </template>
 </dom-module>
+<script type="text/javascript">
+Polymer({
+    is: 'capsule-unit',
 
+    behaviors: [Polymer.IronA11yKeysBehavior],
+    keyBindings: {
+      'esc': '_handleEscapeKey'
+    },
+    /* Using IronA11yKeysBehavior, listen for 'esc' key pressed
+     * anywhere on the page (see keyEventTarget property). 
+     * escape will close an open capsule.
+     */
+    _handleEscapeKey: function(e) {
+      this.$$('neon-animated-pages').select(0);
+    },
+
+    properties: {
+    image: {
+      type: String,
+      value: ""
+    },
+    title: {
+      type: String,
+      value: "See also"
+    },
+    keyEventTarget: { // IronA11yKeysBehavior
+      type: Object,
+      value: function() {
+        return document.body;
+      }
+    }
+  }
+});
+
+  
+</script>
 <!-- **********  CAPSULE-REF  ********** -->
 
 <dom-module id="capsule-ref">
@@ -78,89 +113,7 @@ Example:
   </div>
   </template>
 </dom-module>
-
-<!-- **********  CAPSULE-CARD  ********** -->
-
-<dom-module id="capsule-card">
-
-<style>
-#card {
-
-  width:700px;
-  height:700px;
-  position:absolute;
-  left:300px;
-  top:100px;
-  margin: 25px;
-    z-index: 999;
-},
-
-#card h2 {
-  position: absolute;
-  padding-top: 20px;
-  padding-left: 20px;
-  font-color: #338D83;
-  }
-paper-material {
-  background-color: white;
-
-}
-
-paper-icon-button {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-
-  </style>
-
-  <template>
-  <div id="card">
-  <paper-material elevation="1" class="wrapper paper-font-body2">
-      <h2>{{ title }}</h2>
-      <paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
-      <content></content>
-    </paper-material>
-  </div>
-  </template>
-</dom-module>
-
-<!-- **********  SCRIPTS  ********** -->
-
-<script>
-  Polymer({
-    is: 'capsule-unit',
-
-    behaviors: [Polymer.IronA11yKeysBehavior],
-    keyBindings: {
-      'esc': '_handleEscapeKey'
-    },
-    /* Using IronA11yKeysBehavior, listen for 'esc' key pressed
-     * anywhere on the page (see keyEventTarget property). 
-     * escape will close an open capsule.
-     */
-    _handleEscapeKey: function(e) {
-      this.$$('neon-animated-pages').select(0);
-    },
-
-    properties: {
-    image: {
-      type: String,
-      value: ""
-    },
-    title: {
-      type: String,
-      value: "See also"
-    },
-    keyEventTarget: { // IronA11yKeysBehavior
-      type: Object,
-      value: function() {
-        return document.body;
-      }
-    }
-  }
-});
-
+<script type="text/javascript">
 Polymer({
   is: 'capsule-ref',
 
@@ -223,6 +176,57 @@ Polymer({
   },
   });
 
+  
+</script>
+<!-- **********  CAPSULE-CARD  ********** -->
+
+<dom-module id="capsule-card">
+
+<style>
+#card {
+
+  width:700px;
+  height:700px;
+  position:absolute;
+  left:300px;
+  top:100px;
+  margin: 25px;
+    z-index: 999;
+},
+
+#card h2 {
+  position: absolute;
+  padding-top: 20px;
+  padding-left: 20px;
+  font-color: #338D83;
+  }
+paper-material {
+  background-color: white;
+
+}
+
+paper-icon-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+  </style>
+
+  <template>
+  <div id="card">
+  <paper-material elevation="1" class="wrapper paper-font-body2">
+      <h2>{{ title }}</h2>
+      <paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
+      <content></content>
+    </paper-material>
+  </div>
+  </template>
+</dom-module>
+
+<!-- **********  SCRIPTS  ********** -->
+
+<script>
 Polymer({
 is: "capsule-card",
 
