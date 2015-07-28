@@ -17,9 +17,9 @@ Example:
 <dom-module id="capsule-unit">
   <style>
     .capsule-unit-wrapper {
-      height: 300px;
+/*      height: 300px;
       width: 300px;
-      padding-right: 100px;
+      padding-right: 100px;*/
     }
   </style>
   <template>
@@ -177,50 +177,60 @@ Polymer({
 
   
 </script>
-<!-- **********  CAPSULE-CARD  ********** -->
 
+<!-- **********  CAPSULE-CARD  ********** -->
 <dom-module id="capsule-card">
 
-<style>
-#card {
+	<style>
+		#card {
+			width:700px;
+			height:700px;
+			position:absolute;
+			left:300px;
+			top:100px;
+			margin: 25px;
+			z-index: 999;
+		};
 
-  width:700px;
-  height:700px;
-  position:absolute;
-  left:300px;
-  top:100px;
-  margin: 25px;
-    z-index: 999;
-},
+		#card h2 {
+			position: absolute;
+			padding-top: 20px;
+			padding-left: 20px;
+			font-color: #338D83;
+		};
 
-#card h2 {
-  position: absolute;
-  padding-top: 20px;
-  padding-left: 20px;
-  font-color: #338D83;
-  }
-paper-material {
-  background-color: white;
+		paper-material {
+			background-color: white;
 
-}
+		};
 
-paper-icon-button {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
+		paper-icon-button {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+		};
 
-  </style>
+		::content .card-content {
+			padding:25px;
+			padding-top:50px;
+		};
 
-  <template>
-  <div id="card">
-  <paper-material elevation="1" class="wrapper paper-font-body2">
-      <h2>{{ title }}</h2>
-      <paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
-      <content></content>
-    </paper-material>
-  </div>
-  </template>
+
+
+	</style>
+
+	<template>
+		<div id="card">
+			<paper-material elevation="1" class="wrapper paper-font-body2">
+				<div class="card-content">
+					<h2>{{ title }}</h2>
+					<paper-icon-button icon="clear" on-click="doClose"></paper-icon-button>
+					<content></content>
+				</div>
+			</paper-material>
+		</div>
+	</template>
+
 </dom-module>
 
 <!-- **********  SCRIPTS  ********** -->
