@@ -2,6 +2,7 @@
 	<style>
 		::content #zooming-image {
 			position: relative;
+			cursor:pointer;
 		}
 		
 		;
@@ -12,9 +13,34 @@
 			width: 313px;
 			height: 200px;
 			z-index: 10;
+		};
+
+		::content #zoom-image-container {
+			position: relative;
+		};
+
+		::content #zoom-image-background {
+			background-color: #FFF;
+			width:100%;
+			height:100%;
+			position:fixed;
+			top:0;
+			left:0;
+
+			-webkit-transition: opacity 5000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			   -moz-transition: opacity 5000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			     -o-transition: opacity 5000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			        transition: opacity 5000ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+
+			-webkit-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			   -moz-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			     -o-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			        transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
+
+			opacity:0;
+			display:none;
 		}
-		
-		;
+
 		::content #fullsize {
 			/* also set display:none using style attribute so the to-small 
 		 * doesn't happen on page load
@@ -25,14 +51,15 @@
 			width: 0px;
 			height: 0px;
 			z-index: 20;
+			overflow:hidden;
 			/*
 			animation: to-small-size 1s ease-out running;
 			--webkit-animation: to-small-size 1s ease-out running;
 			*/
-			-webkit-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-			   -moz-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-			     -o-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-			        transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			-webkit-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			   -moz-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			     -o-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+			        transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
 
 			-webkit-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
 			   -moz-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
@@ -45,124 +72,31 @@
 		;
 		::content #fullsize.zoomed {
 			display: block;
-			width: 100px;
-			height: 100px;
+			width: 800px;
+			height: 800px;
 			/*
 			animation: to-full-size 1s ease-out running;
 			--webkit-animation: to-full-size 1s ease-out running;
 			*/
-			-webkit-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-				   -moz-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-				     -o-transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
-				        transition+: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+			-webkit-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+				   -moz-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+				     -o-transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000); 
+				        transition: all 1000ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
 
 			-webkit-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
 			   -moz-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
 			     -o-transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000); 
 			        transition-timing-function: cubic-bezier(0.770, 0.000, 0.175, 1.000);
 		}
-		/* Chrome, Safari, Opera */
-		
-		@-webkit-keyframes to-full-size {
-			0% {
-				width: 0;
-				height: 0;
-			}
-			25% {
-				width: 25%;
-				height: 25%;
-			}
-			50% {
-				width: 50%;
-				height: 50%;
-			}
-			75% {
-				width: 75%;
-				height: 75%;
-			}
-			100% {
-				width: 100%;
-				height: 100%;
-			}
-		}
-		/* Standard syntax */
-		
-		@keyframes to-full-size {
-			0% {
-				width: 0;
-				height: 0;
-			}
-			25% {
-				width: 25%;
-				height: 25%;
-			}
-			50% {
-				width: 50%;
-				height: 50%;
-			}
-			75% {
-				width: 75%;
-				height: 75%;
-			}
-			100% {
-				width: 100%;
-				height: 100%;
-			}
-		}
-		/* Chrome, Safari, Opera */
-		
-		@-webkit-keyframes to-small-size {
-			0% {
-				width: 100%;
-				height: 100%;
-			}
-			25% {
-				width: 75%;
-				height: 75%;
-			}
-			50% {
-				width: 50%;
-				height: 50%;
-			}
-			75% {
-				width: 25%;
-				height: 25%;
-			}
-			100% {
-				width: 0;
-				height: 0;
-			}
-		}
-		/* Standard syntax */
-		
-		@keyframes to-small-size {
-			0% {
-				width: 100%;
-				height: 100%;
-			}
-			25% {
-				width: 75%;
-				height: 75%;
-			}
-			50% {
-				width: 50%;
-				height: 50%;
-			}
-			75% {
-				width: 25%;
-				height: 25%;
-			}
-			100% {
-				width: 0;
-				height: 0;
-			}
-		}
 	</style>
 	<template>
 		<div id="zooming-image">
-			<img id='thumbnail' src="{{ src }}">
-			<img id='fullsize' style="display: none;">
-			<paper-icon-button icon="zoom-in" on-click="_handleButtonClick" style="position:absolute;z-index:11;right:8px;bottom:8px; color: white"></paper-icon-button>
+			<div id="zoom-image-container">
+				<img id='thumbnail' src="{{ src }}">
+				<img id='fullsize' style="display: none;">
+				<paper-icon-button icon="zoom-in" on-click="_handleButtonClick" style="position:absolute;z-index:11;right:8px;bottom:8px; color: white"></paper-icon-button>
+			</div>
+			<div id="zoom-image-background"></div>
 		</div>
 	</template>
 </dom-module>
@@ -176,6 +110,7 @@
 		keyBindings: {
 			'esc': '_handleEscapeKey'
 		},
+
 		/* Using IronA11yKeysBehavior, listen for 'esc' key pressed
 		 * anywhere on the page (see keyEventTarget property). 
 		 * escape will hide a zoomed image.
@@ -183,38 +118,76 @@
 		_handleEscapeKey: function(e) {
 			this.zoomed = false;
 		},
+
 		/* Support users clicking on the small image to get the big one,
 		 * and the big one to hide it and go back to the small one.
 		 */
 		_clickListener: function(e) {
+			console.log("CLICK");
+			//this.zoomed = (e.target.id == 'zoom-image-container');
 			this.zoomed = (e.target.id == 'thumbnail');
+			console.log(this.zoomed);
+			console.log(e.target.id);
+			console.log(this.$['zoom-image-background'])
 		},
+
 		_handleButtonClick: function(e) {
 			this.zoomed = true;
 			e.stopPropagation();
 		},
+
+		/* HIDE AND SHOW
+		================================================== */
 		_showFullSized: function() {
-			var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
+			console.log("show full sized");
+
+			var zoomed = this.$['fullsize'];
 			zoomed.style.display = "block";
+			var background = this.$['zoom-image-background'];
+			//console.log(background);
+			
 			if (zoomed.src) {
-				zoomed.classList.add('zoomed');
+				//zoomed.classList.add('zoomed');
+				zoomed.style.width = "200px";
+				zoomed.style.height = "200px";
+
+				// var background = this.$['zoom-image-background'];
+				// console.log(background);
+				// window.foo = this;
+
+				background.style.display = "block";
+				background.style.opacity = 0;
+				background.style.opacity = 0.8;
 			} else { // lazy load big images
 				var self = this;
-				zoomed.onload = this._showFullSized;
+				zoomed.onload = function() { 
+					self._showFullSized();
+				}
 				zoomed.src = this.fullSrc;
 			}
 		},
+
 		_hideFullSized: function() {
+			console.log("hide");
+			console.log(this.id)
 			var zoomed = (this.id == 'fullsize') ? this : this.$['fullsize'];
 			zoomed.classList.remove('zoomed');
+			console.log(zoomed);
 		},
+
+		/* WHEN CLICKED EVENT
+		================================================== */
 		_zoomedObserver: function() {
+			console.log("zoomObserver")
 			if (this.zoomed) {
 				this._showFullSized()
 			} else {
 				this._hideFullSized();
 			}
 		},
+
+		/* PROPERTIES
+		================================================== */
 		properties: {
 			src: {
 				type: String,
@@ -236,5 +209,6 @@
 				}
 			}
 		}
+
 	});
 </script>
