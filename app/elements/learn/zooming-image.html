@@ -150,7 +150,7 @@
 <script>
 	Polymer({
 		is: 'zooming-image',
-		behaviors: [Polymer.IronA11yKeysBehavior],
+		behaviors: [Polymer.IronA11yKeysBehavior, Learn.HelloWorldBehavior ],
 		listeners: {
 			"click": "_clickListener"
 		},
@@ -207,7 +207,7 @@
 			and the big one to hide it and go back to the small one.
 		================================================== */
 		_clickListener: function(e) {
-
+			this.sayHello('bob');
 			// Set zoomed state to true or false
 			this.zoomed = (e.target.id == 'thumbnail');
 
